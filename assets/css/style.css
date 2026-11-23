@@ -42,6 +42,36 @@ img,video{display:block;max-width:100%}
 /* media + text boxes */
 .media-card{margin-top:34px;border:1px solid #dbe5df;border-radius:14px;overflow:hidden;background:#0e1418;box-shadow:0 18px 50px #172f3614}
 .media-card video{width:100%;height:auto}
+/* hero teaser: break out of the 1180px text column so the 4:1 band stays readable */
+.media-card.bleed{width:min(88vw,1400px);margin-left:calc(50% - min(44vw,700px));margin-right:0}
+@media(max-width:900px){.media-card.bleed{width:calc(100vw - 24px);margin-left:calc(50% - 50vw + 12px)}}
+.scene-switch{position:relative;background:#fff;border-top:1px solid #e6ece9}
+.scene-thumb{flex:0 0 auto;scroll-snap-align:center;padding:0;line-height:0;border:2px solid #dfeae5;border-radius:10px;
+  overflow:hidden;background:#0d1316;cursor:pointer;opacity:.62;transform:scale(1);
+  transition:opacity .2s,border-color .2s,transform .2s,box-shadow .2s}
+.scene-thumb img{width:196px;height:110px;object-fit:cover;display:block}
+.scene-thumb:hover{opacity:.94;transform:scale(1.03)}
+.scene-thumb.is-active{opacity:1;border-color:#106f66;transform:scale(1.07);
+  box-shadow:0 6px 18px #106f6633,0 0 0 2px #106f6622;position:relative;z-index:1}
+.scene-strip{display:flex;gap:11px;padding:19px 16px;overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;justify-content:safe center}
+.scene-strip::-webkit-scrollbar{display:none}
+.scene-strip.is-scroll{justify-content:flex-start}
+.scene-fade{position:absolute;top:0;bottom:0;width:52px;pointer-events:none;opacity:0;transition:opacity .2s}
+.scene-fade.l{left:0;background:linear-gradient(90deg,#fff,#fff0)}
+.scene-fade.r{right:0;background:linear-gradient(270deg,#fff,#fff0)}
+.scene-switch.can-scroll .scene-fade{opacity:1}
+.scene-nav{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;
+  border:1px solid #d9e6e1;background:#fff;color:#106f66;font-size:16px;line-height:1;cursor:pointer;
+  box-shadow:0 2px 8px #172f3614;display:none;place-items:center;padding:0 0 2px}
+.scene-switch.can-scroll .scene-nav{display:grid}
+.scene-switch.at-start .scene-nav.l,.scene-switch.at-end .scene-nav.r{display:none}
+.scene-switch.at-start .scene-fade.l,.scene-switch.at-end .scene-fade.r{opacity:0}
+.scene-nav.l{left:7px}.scene-nav.r{right:7px}
+.scene-nav:hover{background:#eef6f2;border-color:#bcd7cd}
+.scene-thumb:focus-visible{outline:2px solid #106f6666;outline-offset:2px}
+#hero-video{transition:opacity .3s ease}
+#hero-video.is-fading{opacity:.15}
 .media-card figcaption{padding:14px 18px;background:#fff;font-size:14.5px;color:var(--muted);border-top:1px solid #e6ece9}
 .text-box{border:1px solid #d7e4e1;border-radius:14px;background:linear-gradient(115deg,#f0f5fc,#eef8f3);padding:24px 28px}
 .tldr{max-width:1080px;margin:30px auto 0;text-align:left;font-size:18px;line-height:1.85;color:#3f584e}
@@ -72,10 +102,13 @@ img,video{display:block;max-width:100%}
 .steps p{font-size:15px;line-height:1.72;color:var(--muted)}
 
 /* scene grid */
-.scene-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
-.scene-card{background:var(--card);border:1px solid #e0e7e3;border-radius:12px;overflow:hidden;transition:transform .22s,box-shadow .22s}
+.scene-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.scene-card{position:relative;background:var(--card);border:1px solid #e0e7e3;border-radius:12px;overflow:hidden;transition:transform .22s,box-shadow .22s}
 .scene-card:hover{transform:translateY(-3px);box-shadow:0 14px 32px #172f3614}
 .scene-card video{width:100%;height:auto;background:#0d1316}
+.ds-tag{position:absolute;top:9px;right:9px;z-index:2;padding:3px 10px 4px;border-radius:999px;
+  background:#0b1114e6;color:#eaf2ef;font-size:11.5px;font-weight:600;letter-spacing:.04em;border:1px solid #ffffff1f;
+  line-height:1.25;pointer-events:none;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .scene-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 15px;border-top:1px solid #edf2ef}
 .scene-meta strong{font-size:14px;font-weight:600}
 .scene-meta span{font-size:11.5px;color:#8a9b93;letter-spacing:.02em}
